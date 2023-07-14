@@ -41,12 +41,12 @@ allowedResolutions = [
     { width: 5120, height: 2160 }
 ];
 
-router.get('/bg/:view/:width/:height', async (req, res) => {
+router.get('/plymenu/:view/:width/:height', async (req, res) => {
     const { view, width, height } = req.params;
     const cacheKey = `${width}_${height}.png`;
     const cachePath = path.join(cacheDirectory, view, cacheKey);
 
-    const filePath = path.join(__dirname, `../views/bg/${view}.html`);
+    const filePath = path.join(__dirname, `../views/plymenu/${view}.html`);
     console.log(filePath)
 
     // Check if the bg view exists
