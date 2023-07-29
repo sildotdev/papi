@@ -1,0 +1,87 @@
+* {
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: 
+        linear-gradient(
+            0deg, 
+            rgba(0, 26, 46, 0.20) 0%, 
+            rgba(0, 26, 46, 0.20) 100%
+        ), 
+        linear-gradient(
+            0deg, 
+            rgba(0, 0, 0, 0.20) 0%, 
+            rgba(0, 0, 0, 0.20) 100%
+        ), 
+        radial-gradient(
+            100.80% 56.55% at 7.37% 10.23%, 
+            rgba(72, 73, 73, 0.60) 0%, 
+            rgba(217, 217, 217, 0.00) 100%, 
+            rgba(208, 208, 208, 0.00) 100%
+        ), 
+        radial-gradient(
+            247.21% 185.28% at 14.30% 105.23%, 
+            rgba(17, 66, 102, 0.60) 0%, 
+            rgba(73, 32, 124, 0.00) 47.66%
+        ), 
+        radial-gradient(
+            139.92% 102.99% at 85.26% 74.81%, 
+            rgba(43, 195, 140, 1) 0%, 
+            /* rgba(227, 255, 250, 0.27) 50%,  */
+            rgba(233, 255, 251, 0.00) 100%
+        ), 
+        rgba(0, 0, 0, 0.40);
+}
+
+.footer {
+    /* locked to bottom */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    /* linear gradient up */
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.footer-contents {
+    /* distribute elements along row */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 1.5rem;
+}
+
+.left-side {
+    color: rgba(255, 255, 255, 0.40);
+    text-align: left;
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    justify-content: center;
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+}
+
+.right-side {
+    display: flex;
+    height: 4.625rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.right-side a {
+    color: rgba(255, 255, 255, 0.40);
+    text-align: right;
+    font-family: Inter;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
