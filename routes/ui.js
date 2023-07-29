@@ -48,7 +48,8 @@ allowedResolutions = [
 ];
 
 allowedSteamIDs = [
-    '76561198072551027',
+    '76561198072551027', // sil
+    '76561197997304089', // Knight
     '0',
 ]
 
