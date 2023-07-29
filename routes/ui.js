@@ -3,6 +3,7 @@ const router = express.Router();
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
+const ejs = require('ejs');
 
 const cacheDirectory = path.join(__dirname, '..', 'cache');
 
@@ -16,16 +17,21 @@ if (!fs.existsSync(cacheDirectory)) {
     fs.mkdirSync(path.join(cacheDirectory, 'plymenu'));
 }
 
-async function renderHTMLToPNG(filePath, width, height, outputPath) {
+async function renderHTMLToPNG(fileContent, width, height, outputPath) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
-    console.log(`Rendering ${filePath} to ${outputPath} at ${width}x${height}`);
+    // console.log(`Rendering ${filePath} to ${outputPath} at ${width}x${height}`);
+
+    console.log(`Rendering to ${outputPath} at ${width}x${height}`);
 
     await page.setViewport({ width, height });
-    await page.goto(`file://${filePath}`, { waitUntil: 'networkidle0' });
+    await page.setContent(fileContent);
+    // await page.goto(`file://${filePath}`, { waitUntil: 'networkidle0' });
 
     await page.screenshot({ path: outputPath });
+
+    console.log(`Render complete.`);
 
     await browser.close();
 }
@@ -41,12 +47,48 @@ allowedResolutions = [
     { width: 5120, height: 2160 }
 ];
 
+allowedSteamIDs = [
+    '76561198072551027',
+]
+
 router.get('/:screen/:view/:width/:height', async (req, res) => {
+    // Check headers for the Steam ID
+    if (req.headers['steamid'] == undefined) {
+        res.status(401).send('Missing Steam ID');
+        return;
+    }
+
+    // Check headers for API key
+    if (req.headers['apikey'] == undefined) {
+        res.status(401).send('Missing API key');
+        return;
+    }
+
+    // Check if the API key is valid
+    // @TODO: Don't do API key like this (also)
+    // @TODO: Change API key after playtest
+    if (req.headers['apikey'] != 'uE2YS7gaH6e2hmr8zU0433iB4KTacUWh') {
+        res.status(401).send('Invalid API key');
+        return;
+    }
+
+    // Check if the Steam ID is allowed
+    if (!allowedSteamIDs.includes(req.headers['steamid'])) {
+        res.status(403).send('Not allowed');
+        return;
+    }
+
+    // Check if steam name is set
+    if (req.headers['steamname'] == undefined) {
+        res.status(401).send('Missing Steam name');
+        return;
+    }
+
     const { screen, view, width, height } = req.params;
     const cacheKey = `${width}_${height}.png`;
     const cachePath = path.join(cacheDirectory, view, cacheKey);
 
-    const filePath = path.join(__dirname, `../views/${screen}/${view}.html`);
+    const filePath = path.join(__dirname, `../views/${screen}/${view}.ejs`);
 
     if (!fs.existsSync(path.join(__dirname, `../views/${screen}`))) {
         res.status(404).send('Screen not found');
@@ -73,12 +115,26 @@ router.get('/:screen/:view/:width/:height', async (req, res) => {
         try {
             const outputPath = cachePath;
 
-            // Render the local HTML file to PNG
-            // convert the width and height to integers
-            await renderHTMLToPNG(filePath, parseInt(width), parseInt(height), outputPath);
+            ejs.renderFile(filePath, {
+                steam: {
+                    id: req.headers['steamid'],
+                    name: req.headers['steamname'],
+                }
+            }, async (err, html) => {
 
-            // Serve the generated image
-            res.sendFile(outputPath);
+                if (err) {
+                    console.error('Error rendering EJS:', err);
+                    res.status(500).send('Error rendering EJS');
+                    return;
+                }
+
+                // Render the local HTML file to PNG
+                // convert the width and height to integers
+                await renderHTMLToPNG(html, parseInt(width), parseInt(height), outputPath);
+    
+                // Serve the generated image
+                res.sendFile(outputPath);
+            });
         } catch (error) {
             console.error('Error rendering page:', error);
             res.status(500).send('Error rendering page');
