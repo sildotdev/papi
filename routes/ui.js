@@ -49,6 +49,7 @@ allowedResolutions = [
 
 allowedSteamIDs = [
     '76561198072551027',
+    '0',
 ]
 
 router.get('/:screen/:view/:width/:height', async (req, res) => {
