@@ -41,13 +41,17 @@ allowedResolutions = [
     { width: 5120, height: 2160 }
 ];
 
-router.get('/plymenu/:view/:width/:height', async (req, res) => {
-    const { view, width, height } = req.params;
+router.get('/:screen/:view/:width/:height', async (req, res) => {
+    const { screen, view, width, height } = req.params;
     const cacheKey = `${width}_${height}.png`;
     const cachePath = path.join(cacheDirectory, view, cacheKey);
 
-    const filePath = path.join(__dirname, `../views/plymenu/${view}.html`);
-    console.log(filePath)
+    const filePath = path.join(__dirname, `../views/${screen}/${view}.html`);
+
+    if (!fs.existsSync(path.join(__dirname, `../views/${screen}`))) {
+        res.status(404).send('Screen not found');
+        return;
+    }
 
     // Check if the bg view exists
     if (!fs.existsSync(filePath)) {
