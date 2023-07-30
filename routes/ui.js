@@ -109,6 +109,11 @@ router.get('/:screen/:view/:width/:height', async (req, res) => {
         return;
     }
 
+    // Create cache directory if it doesn't exist
+    if (!fs.existsSync(path.join(cacheDirectory, view))) {
+        fs.mkdirSync(path.join(cacheDirectory, view));
+    }
+
     // Check if the image exists in the cache
     if (!disableCache && fs.existsSync(cachePath)) {
         // Serve the cached image
