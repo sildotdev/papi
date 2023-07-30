@@ -14,7 +14,7 @@ if (!fs.existsSync(cacheDirectory)) {
     fs.mkdirSync(cacheDirectory);
 
     // Create subdirectories
-    fs.mkdirSync(path.join(cacheDirectory, 'plymenu'));
+    // fs.mkdirSync(path.join(cacheDirectory, 'plymenu'));
 }
 
 async function renderHTMLToPNG(fileContent, width, height, outputPath) {
