@@ -16,10 +16,17 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // Middleware
-app.use(helmet()); // helps secure your apps by setting various HTTP headers
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan('combined')); // HTTP request logger
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff'); // Or remove this line to not set 'nosniff'
+    res.setHeader('Content-Type', 'your/mime-type'); // Replace with your MIME type
+    next();
+});
+
+
 
 // serve static files
 app.use('/public', express.static('public'))

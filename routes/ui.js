@@ -18,7 +18,7 @@ if (!fs.existsSync(cacheDirectory)) {
 }
 
 async function renderHTMLToPNG(fileContent, width, height, outputPath) {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ headless: true, args: ['--disable-web-security'] });
     const page = await browser.newPage();
 
     // console.log(`Rendering ${filePath} to ${outputPath} at ${width}x${height}`);
@@ -26,7 +26,15 @@ async function renderHTMLToPNG(fileContent, width, height, outputPath) {
     console.log(`Rendering to ${outputPath} at ${width}x${height}`);
 
     await page.setViewport({ width, height });
-    await page.setContent(fileContent);
+    page.on('console', consoleObj => console.log(consoleObj.text()));
+    await page.evaluate(() => {
+        window.addEventListener('error', (event) => {
+            console.log(`Error loading ${event.target.src}`);
+        }, true);
+    });
+    await page.setContent(fileContent, { waitUntil: 'networkidle0' });
+
+
     // await page.goto(`file://${filePath}`, { waitUntil: 'networkidle0' });
 
     await page.screenshot({ path: outputPath });
