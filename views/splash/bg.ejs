@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+        * {
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+        .layered-bg {
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+        .layered-bg::before, .layered-bg::after, .layered-bg > div {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+        }
+        .layered-bg {
+            background: linear-gradient(45deg, #000 100%, #000 100%);
+        }
+        /* .layered-bg::before {
+            background: rgba(0, 0, 0, 0.50);
+        } */
+        .layered-bg > div:nth-child(1) {
+            opacity: 0.5;
+            background: radial-gradient(165.83% 93.28% at 93.28% 91.11%, #2BC38C 0%, rgba(43, 195, 140, 0.00) 100%);
+        }
+        .layered-bg > div:nth-child(2) {
+            opacity: 0.5;
+            background: radial-gradient(301.33% 169.50% at 0.00% 100.00%, #6969A9 0%, rgba(159, 159, 219, 0.00) 100%);
+        }
+        .layered-bg > div:nth-child(3) {
+            opacity: 0.5;
+            background: linear-gradient(180deg, #5F80B1 0%, rgba(95, 128, 177, 0.00) 100%);
+        }
+        /* .layered-bg::after {
+            background: rgba(0, 0, 0, 0.15);
+        } */
+
+        .center-div img {
+            width: 150%;
+            left: -25%; /* center the image */
+            height: 100%;
+            position: absolute; /* absolute positioning within the div */
+            top: 0; /* top-aligned */
+            z-index: 2; /* place images on top of .layered-bg */
+        }
+        .center-div img:last-child {
+            left: 0;
+            width: 100%;
+            height: auto;
+            bottom: 0; /* bottom-aligned */
+            top: auto; /* override top alignment */
+        }
+
+        .footer {
+            /* locked to bottom */
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            /* linear gradient up */
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0) 100%);
+        }
+
+        .footer-contents {
+            /* distribute elements along row */
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin: 0 1.5rem;
+        }
+
+        .left-side {
+            color: rgba(255, 255, 255, 0.40);
+            text-align: left;
+            font-family: Inter;
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            justify-content: center;
+            /* align-items: flex-end; */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .left-side a {
+            color: rgba(255, 255, 255, 0.40);
+            text-align: left;
+            font-family: Inter;
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+
+        .right-side {
+            display: flex;
+            height: 4.625rem;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .right-side a {
+            color: rgba(255, 255, 255, 0.40);
+            text-align: right;
+            font-family: Inter;
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class="layered-bg">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-contents">
+            <div class="left-side">
+                <a>PALOMINO | (indev) - Milestone 1</a>
+                <a><%= steam.name %> (<%= steam.id %>) [Not Authenticated]</a>
+            </div>
+            <div class="right-side">
+                <a>P-API v0.0</a>
+                <a>PRP v0.0</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
