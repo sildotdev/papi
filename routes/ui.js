@@ -44,7 +44,7 @@ async function renderHTMLToPNG(fileContent, width, height, outputPath) {
     await browser.close();
 }
 
-allowedResolutions = [
+const allowedResolutions = [
     { width: 1280, height: 720 },
     { width: 1600, height: 900 },
     { width: 1920, height: 1080 },
@@ -55,11 +55,23 @@ allowedResolutions = [
     { width: 5120, height: 2160 }
 ];
 
-allowedSteamIDs = [
+const allowedSteamIDs = [
     '76561198072551027', // sil
     '76561197997304089', // Knight
     '0',
+
+    // Playtesters
+    '76561198139507705', // ZakisMal
+    '76561198030695593', // tone
+    '76561199117143435', // puvz
+    '76561198159973012', // Wolv
+    '76561198352665638', // Sudzy
+    '76561198241491232', // Du$ty
 ]
+
+router.get('/resolutions', async (req, res) => {
+    res.json(allowedResolutions);
+});
 
 router.get('/:screen/:view/:width/:height', async (req, res) => {
     // Check headers for the Steam ID
