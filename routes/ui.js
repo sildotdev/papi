@@ -58,7 +58,7 @@ const allowedResolutions = [
 const allowedSteamIDs = [
     '76561198072551027', // sil
     '76561197997304089', // Knight
-    '0',
+    '0', // Nonplayer
 
     // Playtesters
     '76561198139507705', // ZakisMal
@@ -89,7 +89,7 @@ router.get('/:screen/:view/:width/:height', async (req, res) => {
     // Check if the API key is valid
     // @TODO: Don't do API key like this (also)
     // @TODO: Change API key after playtest
-    if (req.headers['apikey'] != 'uE2YS7gaH6e2hmr8zU0433iB4KTacUWh') {
+    if (req.headers['apikey'] != 'aFp2bC5P3bhVHWqNTdI7SXljJOtIu2gb') {
         res.status(401).send('Invalid API key');
         return;
     }
