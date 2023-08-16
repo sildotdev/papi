@@ -5,6 +5,10 @@ const morgan = require('morgan');
 const rateLimit = require("express-rate-limit");
 const package = require('./package.json');
 
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
 // server configuration
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -48,5 +52,5 @@ app.use((err, req, res, next) => {
 
 // server start
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`P-API v${package.version} started on port ${PORT}`);
 });
