@@ -3,6 +3,7 @@ const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require("express-rate-limit");
+const package = require('./package.json');
 
 // server configuration
 const PORT = process.env.PORT || 3000;
@@ -36,7 +37,7 @@ const ui = require('./routes/ui');
 app.use('/ui', ui);
 
 app.get('/', (req, res) => {
-    res.send('P-API v0.0');
+    res.send('P-API v' + package.version);
 });
 
 // global error handler
