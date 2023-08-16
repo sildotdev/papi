@@ -3,3 +3,4 @@ cache
 *.code-workspace
 *.zip
 package-lock.json
+.env
