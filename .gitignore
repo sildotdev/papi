@@ -2,5 +2,5 @@ node_modules
 cache
 *.code-workspace
 *.zip
-package-lock.json
 .env
+package-lock.json
