@@ -5,7 +5,9 @@ const morgan = require('morgan');
 const rateLimit = require("express-rate-limit");
 const package = require('./package.json');
 
-if (process.env.NODE_ENV !== 'production') {
+// If process.env.NODE_ENV is not defined, check .env file
+if (!process.env.NODE_ENV) {
+    console.log('NODE_ENV not defined, checking .env file');
     require('dotenv').config();
 }
 
