@@ -146,7 +146,8 @@ router.get('/:screen/:view/:width/:height', async (req, res) => {
                 steam: {
                     id: req.headers['steamid'],
                     name: req.headers['steamname'],
-                }
+                },
+                baseUrl: process.env.BASE_URL,
             }, async (err, html) => {
 
                 if (err) {
