@@ -40,8 +40,14 @@ app.use('/public', express.static('public'))
 const ui = require('./routes/ui');
 app.use('/ui', ui);
 
+const server = require('./routes/server');
+app.use('/server', server);
+
+// '/' route
 app.get('/', (req, res) => {
-    res.send('P-API v' + package.version);
+    res.json({
+        "version": package.version
+    });
 });
 
 // global error handler
