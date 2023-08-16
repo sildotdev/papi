@@ -10,8 +10,8 @@ const app = express();
 
 // Apply rate limiter to all requests
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
 });
 app.use(limiter);
 
@@ -20,11 +20,11 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan('combined')); // HTTP request logger
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use((req, res, next) => {
-    res.setHeader('X-Content-Type-Options', 'nosniff'); // Or remove this line to not set 'nosniff'
-    res.setHeader('Content-Type', 'your/mime-type'); // Replace with your MIME type
-    next();
-});
+// app.use((req, res, next) => {
+//     res.setHeader('X-Content-Type-Options', 'nosniff'); // Or remove this line to not set 'nosniff'
+//     res.setHeader('Content-Type', 'your/mime-type'); // Replace with your MIME type
+//     next();
+// });
 
 
 
