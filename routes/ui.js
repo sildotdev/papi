@@ -67,6 +67,7 @@ const allowedSteamIDs = [
     '76561198159973012', // Wolv
     '76561198352665638', // Sudzy
     '76561198241491232', // Du$ty
+    '76561198002150852', // gregg
 ]
 
 router.get('/resolutions', async (req, res) => {
