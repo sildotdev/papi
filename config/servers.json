@@ -1,0 +1,21 @@
+{
+    "ips": {
+        "165.124.85.138": "sil@home",
+        "3.18.192.161": "palomino-nodes-scrawnynag",
+        "::1": "localhost"
+    },
+
+    "keys": {
+        "6cmMvJOzE0UC2WeDlXTZ7bG4XkAjQeaN": {
+            "name": "sil's Development Server",
+            "ip": "165.124.85.138",
+            "production": false
+        },
+    
+        "fTRx57rJI39t5Zt1Rk2f4BjRW3w2eIia": {
+            "name": "Playtesting",
+            "ip": "3.18.192.161",
+            "production": true
+        }
+    }
+}
