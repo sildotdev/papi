@@ -1,8 +1,7 @@
 class Player {
-    constructor(steamID64, steamName, ipAddress) {
+    constructor(steamID64, steamName) {
         this.steamID64 = steamID64;
         this.steamName = steamName;
-        this.ipAddress = ipAddress;
     }
 }
 

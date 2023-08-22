@@ -1,19 +1,20 @@
-class PlayerSession {
-    spawnTime = 0; // Timestamp for when the player spawned in
+const { v4: uuidv4 } = require('uuid');
 
-    constructor(player, serverIp) {
+class PlayerSession {
+    constructor(player, serverSession) {
         this.player = player; // Instance of the Player class
-        this.serverIp = serverIp; // IP address of the game server they're connected to
-        this.startTime = Date.now(); // Timestamp for when the session started
-        this.lastActivityTime = Date.now(); // Timestamp for tracking the last activity
-    }
+        this.serverSession = serverSession;
     
-    // Update last activity time
-    updateActivity() {
-        this.lastActivityTime = Date.now();
+        this.joinTime = Date.now(); // Timestamp for when the session started
+        this.spawnTime = null; // Timestamp for when the player spawned in
+
+        this.active = true;
+        this.sessionToken = uuidv4(); // Unique session token
     }
-    
-    // Other methods to handle session behavior can be added here
+
+    onSpawn() {
+        this.spawnTime = Date.now();
+    }
 }
 
 module.exports = PlayerSession;

@@ -1,16 +1,24 @@
-const GameServer = require('./GameServer');
+const GameServerSession = require('./GameServerSession');
 
 class ServerState {
     constructor() {
-        this.servers = {};
+        this.sessions = {};
     }
 
     addServer(ip, name, key, production) {
-        this.servers[ip] = new GameServer(ip, name, key, production);
+        let session = new GameServerSession(ip, name, key, production);
+        
+        this.sessions[session.sessionToken] = session;
+
+        return session;
     }
 
-    getServer(ip) {
-        return this.servers[ip];
+    getServer(sessionToken) {
+        return this.servers[sessionToken];
+    }
+
+    removeServer(sessionToken) {
+        delete this.sessions[sessionToken];
     }
 }
 

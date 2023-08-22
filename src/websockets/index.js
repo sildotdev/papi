@@ -1,5 +1,10 @@
 const WebSocket = require('ws');
+const ServerState = require('../models/ServerState');
+
 const serversConfig = require('../../config/servers.json');
+
+// Handlers
+const gameServerHandler = require('./handlers/gameServerHandler');
 
 // Extract the whitelisted IPs
 const whitelistedIPs = Object.keys(serversConfig.ips);
@@ -17,32 +22,43 @@ module.exports = function (server) {
                 return false;
             }
 
-            // Reject the connection if the API key is not valid
+            const sessionToken = info.req.headers['x-session-token'];
+            if (sessionToken) {
+                const serverSession = ServerState.getServer(sessionToken);
+
+                if (serverSession) {
+                    info.req.serverInfo = serverSession;
+                    return true;
+                } else {
+                    console.log(`Rejected connection from invalid session token: ${sessionToken}`);
+                    return false;
+                }
+            }
+
             const apiKey = info.req.headers['x-api-key'];
-            if (!apiKey || !validAPIKeys.includes(apiKey)) {
+
+            // Reject the connection if the API key is missing
+            if (!apiKey) {
+                console.log(`Rejected connection from missing API key.`);
+                return false;
+            }
+
+            // Reject the connection if the API key is not valid
+            if (!validAPIKeys.includes(apiKey)) {
                 console.log(`Rejected connection from unauthorized API key: ${apiKey}`);
                 return false;
             }
 
             // Accept the connection
             console.log(`Accepted connection from ${remoteIP}`);
+
+            info.req.serverInfo = serversConfig.keys[apiKey];
+            info.req.serverInfo.active = false;
+
             return true;
         }
     });
 
-    wss.on('connection', (ws, req) => {
-        console.log('New WebSocket connection');
-        console.log('Headers:', req.headers['x-api-key']);
-
-        server = serversConfig.keys[req.headers['x-api-key']];
-        console.log(`WebSocket connection established with: ${server.name} (${req.socket.remoteAddress})`);
-
-        ws.on('message', (message) => {
-            console.log('Received message:', message);
-
-            ws.send('Got it: ' + message);
-        });
-
-        ws.send('Hello! Message from server!');
-    });
+    // Initialize the handlers
+    gameServerHandler(wss);
 };
