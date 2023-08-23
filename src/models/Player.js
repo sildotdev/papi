@@ -1,6 +1,6 @@
 class Player {
-    constructor(steamID64, steamName) {
-        this.steamID64 = steamID64;
+    constructor(steamID, steamName) {
+        this.steamID = steamID;
         this.steamName = steamName;
     }
 }

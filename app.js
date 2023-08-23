@@ -49,8 +49,8 @@ app.use('/public', express.static('public'));
 const ui = require('./src/routes/client/uiRoutes');
 app.use('/ui', ui);
 
-// const serverRoutes = require('./src/routes/serverRoutes');
-// app.use('/server', serverRoutes);
+const serverRoutes = require('./src/routes/serverRoutes');
+app.use('/server', serverRoutes);
 
 // '/' route
 app.get('/', (req, res) => {

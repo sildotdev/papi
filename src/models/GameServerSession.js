@@ -1,12 +1,14 @@
 const { v4: uuidv4 } = require('uuid');
 
 const Players = require('./Players');
+const PlayerSession = require('./PlayerSession');
 
 class GameServerSession {
-    constructor(ip, name, production) {
+    constructor(ip, name, production, whitelist) {
         this.ip = ip;
         this.name = name;
         this.production = production;
+        this.whitelist = whitelist || false;
         this.active = true;
 
         this.players = [];
@@ -25,7 +27,7 @@ class GameServerSession {
     // Player management
 
     onPlayerJoin(player) {
-        playerSession = new PlayerSession(
+        let playerSession = new PlayerSession(
             this,
             player,
         );
@@ -36,6 +38,12 @@ class GameServerSession {
 
     onPlayerLeave(player) {
         this.players = this.players.filter(p => p !== player);
+
+        let playerSession = this.playerSessions.find(ps => ps.player === player);
+        if (playerSession) {
+            playerSession.onPlayerLeave();
+            this.playerSessions = this.playerSessions.filter(ps => ps !== playerSession);
+        }
     }
 }
 

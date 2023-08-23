@@ -1,7 +1,8 @@
 class Character {
-    constructor(name, owningPlayer) {
-        this.name = name;
-        this.owningPlayer = owningPlayer;
+    constructor(player) {
+        this.player = player;
         this.organizations = [];
     }
 }
+
+module.exports = Character;

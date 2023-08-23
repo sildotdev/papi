@@ -5,8 +5,8 @@ class ServerState {
         this.sessions = {};
     }
 
-    addServer(ip, name, key, production) {
-        let session = new GameServerSession(ip, name, key, production);
+    addServer(ip, name, production, whitelist) {
+        let session = new GameServerSession(ip, name, production, whitelist);
         
         this.sessions[session.sessionToken] = session;
 
@@ -14,7 +14,11 @@ class ServerState {
     }
 
     getServer(sessionToken) {
-        return this.servers[sessionToken];
+        return this.sessions[sessionToken];
+    }
+
+    getServers() {
+        return this.sessions;
     }
 
     removeServer(sessionToken) {
