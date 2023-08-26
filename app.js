@@ -1,4 +1,5 @@
 // modules
+const http = require('http');
 const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -34,16 +35,22 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 // });
 
 
+// Create HTTP server
+const server = http.createServer(app);
+
+// Create WebSocket server
+const setupWebSockets = require('./src/websockets'); // Import the WebSocket setup function
+setupWebSockets(server); // Set up the WebSocket server
 
 // serve static files
-app.use('/public', express.static('public'))
+app.use('/public', express.static('public'));
 
 // routes
-const ui = require('./routes/ui');
+const ui = require('./src/routes/client/uiRoutes');
 app.use('/ui', ui);
 
-const server = require('./routes/server');
-app.use('/server', server);
+const serverRoutes = require('./src/routes/serverRoutes');
+app.use('/server', serverRoutes);
 
 // '/' route
 app.get('/', (req, res) => {
@@ -58,7 +65,7 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
-// server start
-app.listen(PORT, () => {
+// Server start
+server.listen(PORT, () => {
     console.log(`P-API v${package.version} started on port ${PORT}`);
 });

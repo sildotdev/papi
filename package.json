@@ -1,6 +1,6 @@
 {
   "name": "papi",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "",
   "main": "app.js",
   "scripts": {
@@ -16,6 +16,9 @@
     "express-rate-limit": "^6.8.1",
     "helmet": "^7.0.0",
     "morgan": "^1.10.0",
-    "puppeteer": "^20.7.2"
+    "mysql2": "^3.6.0",
+    "puppeteer": "^20.7.2",
+    "sequelize": "^6.32.1",
+    "uuid": "^9.0.0"
   }
 }

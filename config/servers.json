@@ -1,0 +1,38 @@
+{
+    "ips": {
+        "165.124.85.138": "sil@home",
+        "3.18.192.161": "palomino-nodes-scrawnynag",
+        "::1": "localhost",
+        "0.0.0.0/0": "localhost",
+        "::ffff:127.0.0.1": "localhost"
+    },
+
+    "keys": {
+        "6cmMvJOzE0UC2WeDlXTZ7bG4XkAjQeaN": {
+            "name": "sil's Development Server",
+            "production": false,
+            "whitelist": {
+                "STEAM_0:1:56142649": "sil",
+                "STEAM_0:0:0": "Bot/Multirun"
+            }
+        },
+    
+        "fTRx57rJI39t5Zt1Rk2f4BjRW3w2eIia": {
+            "name": "Playtesting",
+            "production": true,
+            "whitelist": {
+                "STEAM_0:1:56142649": "sil",
+                "STEAM_0:1:18519180": "Knight",
+                "STEAM_0:0:20942562": "gregg",
+                "0": "Bot/Multirun",
+
+                "STEAM_0:1:89620988": "ZakisMal",
+                "STEAM_1:1:35214932": "tone",
+                "STEAM_0:1:578438853": "puvz",
+                "STEAM_0:0:99853642": "Wolv",
+                "STEAM_1:0:196199955": "Sudzy",
+                "STEAM_0:0:140612752": "Du$ty"
+            }
+        }
+    }
+}
