@@ -68,6 +68,7 @@ const allowedSteamIDs = [
     '76561198352665638', // Sudzy
     '76561198241491232', // Du$ty
     '76561198002150852', // gregg
+    '76561197977463266', // WhiteTiger
 ]
 
 router.get('/resolutions', async (req, res) => {
@@ -111,9 +112,9 @@ router.get('/:screen/:view/:width/:height', async (req, res) => {
     const cacheKey = `${width}_${height}.png`;
     const cachePath = path.join(cacheDirectory, view, cacheKey);
 
-    const filePath = path.join(__dirname, `../views/${screen}/${view}.ejs`);
+    const filePath = path.join(__dirname, `../../views/${screen}/${view}.ejs`);
 
-    if (!fs.existsSync(path.join(__dirname, `../views/${screen}`))) {
+    if (!fs.existsSync(path.join(__dirname, `../../views/${screen}`))) {
         res.status(404).send('Screen not found');
         return;
     }
