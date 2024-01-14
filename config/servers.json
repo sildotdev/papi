@@ -16,6 +16,15 @@
                 "STEAM_0:0:0": "Bot/Multirun"
             }
         },
+
+        "5caAFg3pVP838vT6aIefa4jVUSu567md": {
+            "name": "Nykez Development Server",
+            "production": false,
+            "whitelist": {
+                "STEAM_0:1:25789514": "Nykez",
+                "STEAM_0:0:0": "Bot/Multirun"
+            }
+        },
     
         "fTRx57rJI39t5Zt1Rk2f4BjRW3w2eIia": {
             "name": "Playtesting",
