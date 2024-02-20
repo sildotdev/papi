@@ -16,6 +16,15 @@
                 "STEAM_0:0:0": "Bot/Multirun"
             }
         },
+
+        "5caAFg3pVP838vT6aIefa4jVUSu567md": {
+            "name": "Nykez Development Server",
+            "production": false,
+            "whitelist": {
+                "STEAM_0:1:25789514": "Nykez",
+                "STEAM_0:0:0": "Bot/Multirun"
+            }
+        },
     
         "fTRx57rJI39t5Zt1Rk2f4BjRW3w2eIia": {
             "name": "Playtesting",
@@ -32,7 +41,15 @@
                 "STEAM_0:0:99853642": "Wolv",
                 "STEAM_1:0:196199955": "Sudzy",
                 "STEAM_0:0:140612752": "Du$ty",
-                "STEAM_1:0:8598769": "WhiteTiger"
+                "STEAM_1:0:8598769": "WhiteTiger",
+                "STEAM_0:0:121982224": "HuskyDogs",
+                "STEAM_1:0:420233784": "Bands",
+                "STEAM_0:0:52866882": "xWaller",
+                "STEAM_0:0:45719853": "raginganus",
+                "STEAM_0:0:79295362 ": "obijuankenoi",
+                "STEAM_0:1:32595793": "Galactic Potatoes",
+                "STEAM_0:1:50435200": "Ansly",
+                "STEAM_0:1:25789514": "Nykez"
             }
         }
     }
