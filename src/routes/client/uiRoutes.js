@@ -4,6 +4,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 const ejs = require('ejs');
+const steamid = require('steamid');
 
 const cacheDirectory = path.join(__dirname, '..', 'cache');
 
@@ -55,23 +56,6 @@ const allowedResolutions = [
     { width: 5120, height: 2160 }
 ];
 
-const allowedSteamIDs = [
-    '76561198072551027', // sil
-    '76561197997304089', // Knight
-    '0', // Nonplayer
-
-    // Playtesters
-    '76561198139507705', // ZakisMal
-    '76561198030695593', // tone
-    '76561199117143435', // puvz
-    '76561198159973012', // Wolv
-    '76561198352665638', // Sudzy
-    '76561198241491232', // Du$ty
-    '76561198002150852', // gregg
-    '76561197977463266', // WhiteTiger
-    '76561198011844757', // Nykez
-]
-
 router.get('/resolutions', async (req, res) => {
     res.json(allowedResolutions);
 });
@@ -98,8 +82,9 @@ router.get('/:screen/:view/:width/:height', async (req, res) => {
     }
 
     // Check if the Steam ID is allowed
-    if (!allowedSteamIDs.includes(req.headers['steamid'])) {
-        res.status(403).send('Not allowed');
+    let sid = new SteamID(req.headers['steamid']);
+    if (!sid.isValid()) {
+        res.status(401).send('Invalid Steam ID');
         return;
     }
 
