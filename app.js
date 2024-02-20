@@ -51,6 +51,9 @@ app.use('/public', express.static('public'));
 const ui = require('./src/routes/client/uiRoutes');
 app.use('/ui', ui);
 
+const clientRoutes = require('./src/routes/clientRoutes');
+app.use('/client', clientRoutes);
+
 const serverRoutes = require('./src/routes/serverRoutes');
 app.use('/server', serverRoutes);
 
