@@ -7,6 +7,9 @@ router.use((req, res, next) => {
     next();
 });
 
+router.use('/police', require('./shared/policeRoutes'));
+router.use('/ui', require('./client/uiRoutes'));
+
 router.get('/', async (req, res) => {
     res.status(200).json({
         "realm": "client",
