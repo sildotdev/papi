@@ -48,6 +48,8 @@ setupWebSockets(server); // Set up the WebSocket server
 app.use('/public', express.static('public'));
 
 // routes
+
+// @TODO: Remove as it's in client
 const ui = require('./src/routes/client/uiRoutes');
 app.use('/ui', ui);
 
