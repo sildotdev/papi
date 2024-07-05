@@ -47,6 +47,9 @@ router.use((req, res, next) => {
     next();
 });
 
+const policeRoutes = require('./server/policeRoutes');
+router.use('/police', policeRoutes);
+
 router.get('/', async (req, res) => {
     res.status(200).json({
         "realm": "server",

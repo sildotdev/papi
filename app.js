@@ -4,6 +4,7 @@ const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require("express-rate-limit");
+const cookieParser = require('cookie-parser');
 const package = require('./package.json');
 
 // If process.env.NODE_ENV is not defined, check .env file
@@ -35,6 +36,7 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 //     res.setHeader('Content-Type', 'your/mime-type'); // Replace with your MIME type
 //     next();
 // });
+app.use(cookieParser());
 
 
 // Create HTTP server
@@ -53,6 +55,9 @@ app.use('/ui', ui);
 
 const serverRoutes = require('./src/routes/serverRoutes');
 app.use('/server', serverRoutes);
+
+const clientRoutes = require('./src/routes/clientRoutes');
+app.use('/client', clientRoutes);
 
 // '/' route
 app.get('/', (req, res) => {
