@@ -38,6 +38,7 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 // });
 app.use(cookieParser());
 
+const sequelize = require('./src/services/db');
 
 // Create HTTP server
 const server = http.createServer(app);
