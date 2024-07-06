@@ -8,8 +8,8 @@ const createLocalDatabase = () => {
 };
 
 const createPrimaryDatabase = () => {
-  return new Sequelize('database', 'username', 'password', {
-    host: 'localhost',
+  return new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
+    host: process.env.DB_HOST,
     dialect: 'mysql',
   });
 };
