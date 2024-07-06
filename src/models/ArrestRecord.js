@@ -1,39 +1,48 @@
 const initializeDatabase = require('../services/db');
 const { DataTypes } = require('sequelize');
 
-initializeDatabase.then(sequelize => {
+const defineArrestRecord = async () => {
+  const sequelize = await initializeDatabase;
   const ArrestRecord = sequelize.define('ArrestRecord', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
+    arrestTime: {
+        type: DataTypes.DATE,
+        allowNull: false,
+    },
+    suspectID: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     suspectName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    arrestDate: {
-      type: DataTypes.DATE,
+    officerID: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    offense: {
+    officerName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    arrestingOfficer: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    length: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
     },
-    location: {
+    reason: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   });
 
   // Sync the model with the database
-  sequelize.sync();
+  await sequelize.sync();
 
-  module.exports = ArrestRecord;
-}).catch(err => {
-  console.error('Failed to initialize the database:', err);
-});
+  return ArrestRecord;
+};
+
+module.exports = defineArrestRecord;
