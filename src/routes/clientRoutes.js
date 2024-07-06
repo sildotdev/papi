@@ -3,26 +3,29 @@ const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
-const SECRET_KEY = "your-jwt-secret-key"
-
 router.use((req, res, next) => {
-    // check if auth_token exists
-    // avoid TypeError: Cannot read properties of undefined (reading 'auth_token')
     if (!req.cookies.auth_token) {
-        res.status(401).json({ error: 'No token provided' });
+        // Save the original URL
+        const originalUrl = req.originalUrl;
+        
+        // Redirect to SSO server with the original URL as a query parameter
+        return res.redirect(`${process.env.AUTH_URL}/webclient/login?returnUrl=${process.env.BASE_URL + originalUrl}`);
     }
-    let token = req.cookies.auth_token;
 
+    const token = req.cookies.auth_token;
 
-    // const token = req.cookies.auth_token;
-  
     try {
-        const decoded = jwt.verify(token, SECRET_KEY);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded;
         next();
     } catch (error) {
         console.log(error);
-        return res.status(401).json({ error: 'Invalid token' });
+        
+        // Save the original URL
+        const originalUrl = req.originalUrl;
+        
+        // Redirect to SSO server with the original URL as a query parameter
+        res.redirect(`${process.env.AUTH_URL}/webclient/login?returnUrl=${process.env.BASE_URL + originalUrl}`);
     }
 });
 
