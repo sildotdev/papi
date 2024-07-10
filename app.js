@@ -1,10 +1,10 @@
-// modules
 const http = require('http');
 const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require("express-rate-limit");
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const package = require('./package.json');
 
 // If process.env.NODE_ENV is not defined, check .env file
@@ -17,8 +17,6 @@ if (!process.env.NODE_ENV) {
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-
-// uh oh
 // Apply rate limiter to all requests
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -27,15 +25,14 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // Middleware
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+const corsOptions = {
+    origin: ['http://localhost:3000', 'http://localhost:3030', 'http://localhost:8080', 'https://papi-staging.palominorp.com'],
+    credentials: true,
+}
+app.use(cors(corsOptions));
 app.use(morgan('combined')); // HTTP request logger
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-// app.use((req, res, next) => {
-//     res.setHeader('X-Content-Type-Options', 'nosniff'); // Or remove this line to not set 'nosniff'
-//     res.setHeader('Content-Type', 'your/mime-type'); // Replace with your MIME type
-//     next();
-// });
 app.use(cookieParser());
 
 const sequelize = require('./src/services/db');
