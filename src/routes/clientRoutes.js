@@ -4,6 +4,20 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 router.use((req, res, next) => {
+    // Check bearer token
+    if (req.headers.authorization) {
+        const token = req.headers.authorization.split(' ')[1];
+
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            req.user = decoded;
+            return next();
+        } catch (error) {
+            console.log(error);
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
+    }
+
     if (!req.cookies.auth_token) {
         // Save the original URL
         const originalUrl = req.originalUrl;

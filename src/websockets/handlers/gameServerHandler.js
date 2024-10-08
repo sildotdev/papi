@@ -1,6 +1,7 @@
 const ServerState = require('../../models/ServerState');
 
 const playerSessionHandler = require('./playerSessionHandler');
+const gameClientAuthHandler = require('./gameClientAuthHandler');
 
 module.exports = function (wss) {
     wss.on('connection', (ws, req) => {
@@ -45,13 +46,20 @@ module.exports = function (wss) {
                     console.log("Received heartbeat from server: ", serverSession.name);
                     break;
                 case 'player/join':
+                    console.log("Player joined: ", contents.data);
                     playerSessionHandler.onPlayerJoin(serverSession, contents.data);
                     break;
                 case 'player/leave':
+                    console.log("Player left: ", contents.data);
                     playerSessionHandler.onPlayerLeave(serverSession, contents.data);
                     break;
                 case 'player/spawn':
+                    console.log("Player spawned: ", contents.data);
                     // placeholder
+                    break;
+                case 'auth/createChallenge':
+                    console.log("Received auth challenge request: ", contents.data);
+                    gameClientAuthHandler.createChallenge(ws, contents.data);
                     break;
             }
         });
