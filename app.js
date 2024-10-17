@@ -26,7 +26,18 @@ app.use(limiter);
 
 // Middleware
 const corsOptions = {
-    origin: ['http://loopback.gmod:3000', 'http://loopback.gmod:3030', 'http://loopback.gmod:8080', 'http://localhost:3000', 'http://localhost:3030', 'http://localhost:8080', 'https://papi-staging.palominorp.com'],
+    origin: [
+        'http://loopback.gmod:3000',
+        'http://loopback.gmod:3030',
+        'http://loopback.gmod:8080',
+        'http://localhost:3000',
+        'http://localhost:3030',
+        'http://localhost:8080',
+        'https://papi-staging.palominorp.com',
+        'https://papi.palominorp.com',
+        'https://pal-os.palomino.gg',
+        'https://auth.palominorp.com',
+    ],
     credentials: true,
 }
 app.use(cors(corsOptions));
