@@ -10,8 +10,9 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/arrest', async (req, res) => {
-    const ArrestRecord = await defineArrestRecord();
+    console.log("POST /arrest");
 
+    const ArrestRecord = await defineArrestRecord();
     
     console.log("REQ BODY / REQ JSON:")
     console.log(req.body);
