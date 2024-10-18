@@ -4,7 +4,7 @@ module.exports = {
     createChallenge: function(ws, data) {
         console.log('Creating challenge for player', data.steamId, 'with character', data.characterId);
 
-        axios.post('http://localhost:3000/player/create-challenge', {
+        axios.post(process.env.AUTH_URL + '/player/create-challenge', {
             steamId: data.steamId,
             characterId: data.characterId
         }).then((res) => {
