@@ -44,9 +44,9 @@ const whitelistedIPs = Object.keys(serversConfig.ips);
 //     next();
 // });
 
-router.use((req, res, next) => {
+// router.use((req, res, next) => {
     
-});
+// });
 
 const policeRoutes = require('./server/policeRoutes');
 router.use('/police', policeRoutes);
