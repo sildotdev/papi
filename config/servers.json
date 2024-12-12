@@ -1,7 +1,5 @@
 {
     "ips": {
-        "98.52.70.187": "sil@home",
-        "3.18.192.161": "palomino-nodes-scrawnynag",
         "::1": "localhost",
         "0.0.0.0/0": "localhost",
         "::ffff:127.0.0.1": "localhost"
