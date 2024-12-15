@@ -29,7 +29,6 @@
             "production": true,
             "whitelist": {
                 "STEAM_0:1:56142649": "sil",
-                "STEAM_0:1:18519180": "Knight",
                 "STEAM_0:0:20942562": "gregg",
                 "0": "Bot/Multirun",
 
