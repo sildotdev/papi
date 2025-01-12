@@ -8,4 +8,6 @@ PAPI implements:
 - Game Server, Game Client, and Webclient, authenticated routes through [PAUTH](https://github.com/sildotdev/pauth)  
 - Game Server & Player Session handlers via WebSockets
 
+This project also supports SSL when deployed on a single instance AWS Elastic Beanstalk through custom scripts in `/.ebextensions` and `/.platform/nginx`.
+
 PAPI v2, in TypeScript, can be found [here](https://github.com/Palomino-Roleplay/papi-v2). It was created right before the project was halted.
